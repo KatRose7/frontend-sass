@@ -48,7 +48,7 @@ const routes = [
     path: '/vendedor',
     name: 'vendedor-dashboard',
     component: VendedorDashboard,  // Dashboard del Vendedor
-    //meta: { requiresAuth: true },  // Puedes activar esta línea si deseas proteger la ruta
+    meta: { requiresAuth: true },  // Puedes activar esta línea si deseas proteger la ruta
   },
   {
     path: '/microempresa-register',  // Nueva ruta para registro de microempresa

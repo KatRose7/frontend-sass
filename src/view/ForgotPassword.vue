@@ -71,15 +71,15 @@ export default {
         left: 10px;
         transform: translateY(-50%);
         font-size: 18px;
-        color: #1f3a64; /* Icono de color azul marino */
+        color: #1f3a64; 
       }
 
       input {
         width: 100%;
-        padding: 12px 12px 12px 40px; /* Ajuste para el ícono */
+        padding: 12px 12px 12px 40px; 
         margin-top: 5px;
         border: 1px solid #ddd;
-        border-radius: 8px; /* Bordes redondeados */
+        border-radius: 8px; 
         font-size: 14px;
         box-sizing: border-box;
       }
@@ -88,16 +88,16 @@ export default {
     .btn-submit {
       width: 100%;
       padding: 14px;
-      background-color: #1f3a64; /* Azul marino */
+      background-color: #1f3a64; 
       color: white;
       border: none;
-      border-radius: 8px; /* Bordes redondeados */
+      border-radius: 8px; 
       cursor: pointer;
       font-size: 16px;
       margin-top: 20px;
 
       &:hover {
-        background-color: #142a48; /* Azul más oscuro al pasar el mouse */
+        background-color: #142a48; 
       }
     }
 
@@ -107,7 +107,7 @@ export default {
 
       a {
         text-decoration: none;
-        color: #1f3a64; /* Azul marino */
+        color: #1f3a64; 
 
         &:hover {
           text-decoration: underline;
