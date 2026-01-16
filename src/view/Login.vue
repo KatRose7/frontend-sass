@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -54,16 +56,19 @@ export default {
     async handleLogin() {
       try {
         // Enviar credenciales al backend para la autenticación
-        const response = await this.$http.post('/api/login', {
-          username: this.username,
+        const response = await axios.post('https://hs1sbz-ip-190-181-17-18.tunnelmole.net/api/auth/login', {
+          email: this.username,
           password: this.password,
         });
+        
+        console.log('Login exitoso:', response.data['user']['nombre_completo']);
 
         // Supongamos que el backend devuelve el token y el rol
         const { token, role } = response.data;
 
         // Guardar token en localStorage
-        localStorage.setItem('auth-token', token);
+         localStorage.setItem('auth-token', token);
+        localStorage.setItem('nombre_completo', response.data['user']['nombre_completo']);
 
         // Redirigir al dashboard correspondiente según el rol
         if (role === 'admin') {
@@ -71,7 +76,7 @@ export default {
         } else if (role === 'vendedor') {
           this.$router.push('/vendedor');
         } else {
-          this.$router.push('/microempresa');
+          this.$router.push('/superus');
         }
       } catch (error) {
         console.error('Error de login:', error);

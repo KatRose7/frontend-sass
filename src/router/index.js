@@ -6,7 +6,7 @@ import Login from '../view/Login.vue'
 import ForgotPassword from '../view/ForgotPassword.vue'  // Página de recuperación de contraseña
 import Register from '../view/Register.vue';  
 import AdminDashboard from '../view/AdminDashboard.vue';  
-import MicroempresaDashboard from '../view/MicroempresaDashboard.vue' // SuperUsuario
+import SuperUsDashboard from '../view/SuperUsDashboard.vue'
 import VendedorDashboard from '../view/VendedorDashboard.vue'
 import MicroempresaRegister from '../view/MicroempresaRegister.vue'
 
@@ -39,9 +39,9 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/microempresa',
-    name: 'microempresa-dashboard',
-    component: MicroempresaDashboard,  // Dashboard del Superusuario Microempresa
+    path: '/superus',
+    name: 'superusuario-dashboard',
+    component: SuperUsDashboard,  // Dashboard del Superusuario Microempresa
     meta: { requiresAuth: true },
   },
   {

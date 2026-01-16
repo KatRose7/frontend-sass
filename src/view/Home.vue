@@ -13,22 +13,28 @@
       </div>
       <nav class="navbar">
         <a href="#" class="navbar-link">Explorar</a>
-        <a href="#" class="navbar-link">Comunidad</a>
+       
         <a href="#" class="navbar-link">¿Cómo funciona?</a>
         <router-link to="/register" class="signup-btn">Registrarse</router-link>
         <router-link to="/login" class="login-btn">Iniciar sesión</router-link>
-        <router-link to="/microempresa-register" class="register-btn">Registrar Microempresa</router-link> <!-- Botón de microempresa -->
+        <router-link to="/microempresa-register" class="register-btn">Registrar Microempresa</router-link>
+        <!-- Botón de microempresa -->
       </nav>
     </header>
 
-    <!-- Sección principal -->
-    <section class="hero-section">
-      <h1 class="hero-title">Encuentra la mejor solución SaaS</h1>
-      <p class="hero-description">
-        Conéctate con los mejores servicios SaaS para hacer crecer tu negocio de manera eficiente.
-      </p>
-      <div class="cta-buttons">
-        <button class="cta-btn">Explorar resultados</button>
+    <!-- Sección de microempresas -->
+    <section class="microempresas-section">
+      <h2>Microempresas</h2>
+      <div class="microempresas-cards">
+        <div class="card" v-for="microempresa in microempresas" :key="microempresa.id" @mouseover="hover = true"
+          @mouseleave="hover = false" :class="{ 'card-hover': hover }">
+          <div class="card-content">
+            <h3>{{ microempresa.nombre }}</h3>
+            <p>{{ microempresa.direccion }}</p>
+            <p>Teléfono: {{ microempresa.telefono }}</p>
+            <p>Horario: {{ microempresa.horario_atencion }}</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -40,13 +46,32 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-  name: "Navbar",
+  data() {
+    return {
+      microempresas: [],
+      hover: false,
+    };
+  },
+  mounted() {
+    this.fetchMicroempresas();
+  },
+  methods: {
+    async fetchMicroempresas() {
+      try {
+        const response = await axios.get('https://hs1sbz-ip-190-181-17-18.tunnelmole.net/api/auth/allMicroempresas');
+        this.microempresas = response.data.microempresas;
+      } catch (error) {
+        console.error("Error al obtener las microempresas:", error);
+      }
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
-/* Contenedor general */
 .home-container {
   font-family: 'Arial', sans-serif;
   background-color: #f5f5f5;
@@ -61,7 +86,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #1c3b56; /* Azul más oscuro */
+  background-color: #1c3b56;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   .logo {
@@ -75,7 +100,7 @@ export default {
     align-items: center;
     background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 30px; /* Bordes redondeados más amplios */
+    border-radius: 30px;
     padding: 5px 15px;
 
     input {
@@ -88,7 +113,7 @@ export default {
     }
 
     .search-btn {
-      background-color: #3498db;
+      background-color: #abb1b4;
       border: none;
       color: white;
       padding: 8px 12px;
@@ -98,88 +123,84 @@ export default {
       margin-left: 10px;
 
       &:hover {
-        background-color: #2980b9;
+        background-color: #a6acaf;
       }
     }
   }
 
   .navbar {
     display: flex;
-    justify-content: center; /* Centra los enlaces */
-    gap: 30px; /* Espaciado entre los enlaces */
-    align-items: center; /* Centrado vertical */
-    height: 100%; /* Asegura que los enlaces estén centrados verticalmente */
-    
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+    height: 100%;
+
     a {
       color: #fff;
       text-decoration: none;
       font-size: 14px;
-      padding: 10px 0; /* Ajuste para alinear verticalmente */
-    }
-
-    .signup-btn, .login-btn, .register-btn {
-      padding: 10px 20px;
-      background-color: #2980b9;
-      color: white;
-      border-radius: 20px; /* Botones ovalados */
-      font-size: 14px;
-      text-decoration: none;
-
-      &:hover {
-        background-color: #1f6392;
-      }
-    }
-
-    .login-btn {
-      background-color: #fff;
-      color: #2980b9;
-      border: 1px solid #2980b9;
-
-      &:hover {
-        background-color: #2980b9;
-        color: white;
-      }
+      padding: 10px 0;
     }
   }
 }
 
-/* Sección Hero */
-.hero-section {
-  text-align: center;
-  padding: 50px;
+/* Sección de Microempresas */
+.microempresas-section {
+  padding: 30px;
   background-color: #fff;
   margin-top: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-  .hero-title {
-    font-size: 36px;
-    font-weight: bold;
+  h2 {
+    text-align: center;
+    font-size: 28px;
     color: #333;
     margin-bottom: 20px;
   }
 
-  .hero-description {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 40px;
+  .microempresas-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
   }
 
-  .cta-buttons {
-    .cta-btn {
-      padding: 12px 20px;
-      background-color: #3498db;
-      color: white;
-      font-size: 16px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      text-decoration: none;
+  .card {
+    width: 280px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    padding: 15px;
+    cursor: pointer;
 
-      &:hover {
-        background-color: #2980b9;
+    .card-content {
+      padding: 10px 0;
+
+      h3 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 8px;
       }
     }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .card-hover {
+    background-color: #f4f7fa;
+    transform: scale(1.05);
   }
 }
 
@@ -192,5 +213,3 @@ export default {
   border-top: 1px solid #ddd;
 }
 </style>
-
-
